@@ -11,7 +11,7 @@ public static class ArraySelector
 
     private static int[] ListSelector(int[] list1, int[] list2, int[] select)
     {
-        var result = new int[select.Length]; // New list will be the same length as 'select' list from parameters
+        var result = new int[select.Length];
         var l1Idx = 0; // Used to track index of first list
         var l2Idx = 0; // Used to track index of second list
 
