@@ -13,8 +13,25 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // PLAN
+        // Multiple the 'number' by another number, starting with 1 and increasing by 1, up to 'length' times.
+        // Create an array using the 'length' for size to hold the results
+        // Loop through 'length' times, multiplying 'number' by each index (starting from 1 to 'length')
+        // Add result to the array in current index position
+        // Return the results
+
+        double[] results = new double[length]; // Create array the size of 'length'
+
+        // loop through array 'length' times and fill with multiples of 'number'
+        for (int i = 0; i < length; i++)
+        {
+            results[i] = number * (i + 1); // 'insert multiple at current index
+        }
+
+
+        return results; // return array results
     }
+
 
     /// <summary>
     /// Rotate the 'data' to the right by the 'amount'.  For example, if the data is 
