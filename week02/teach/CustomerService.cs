@@ -16,8 +16,10 @@ public class CustomerService
         // Scenario: User enters an invalid size for the queue
         // Expected Result: max_size = 10 (default)
         Console.WriteLine("Test 1 - Invalid size entered - Default to 10");
-        var defaultQueue = new CustomerService(0);
-        Console.WriteLine(defaultQueue);
+        var zeroQueue = new CustomerService(0);
+        var negativeQueue = new CustomerService(-1);
+        Console.WriteLine(zeroQueue);
+        Console.WriteLine(negativeQueue);
 
         // Defect(s) Found: None
 
@@ -68,8 +70,7 @@ public class CustomerService
         queue.AddNewCustomer(); // Customer 4
         queue.AddNewCustomer(); // Customer 5
         var queueSize3 = queue._queue.Count;
-        Console.WriteLine("Max size is 3. Queue is " + queueSize3 + " - This should display an error for a full queue.");
-        Console.WriteLine(queue);
+        Console.WriteLine("Max size is 3. Queue is " + queueSize3);
 
         // Defect(s) Found: Customer was queued instead of receiving an error
         // If statement was missing an = to prevent adding if queue was already at max
@@ -83,7 +84,7 @@ public class CustomerService
         var emptyQueue = new CustomerService(5);
         emptyQueue.ServeCustomer();
 
-        // Defect(s) Found: 
+        // Defect(s) Found: Code breaks. Need to check count in queue and proceed as needed
 
         Console.WriteLine("=================");
 
@@ -155,9 +156,16 @@ public class CustomerService
     /// </summary>
     private void ServeCustomer()
     {
-        var customer = _queue[0];
-        _queue.RemoveAt(0); // Moved to remove customer after information is retrieved
-        Console.WriteLine(customer);
+        if (_queue.Count <= 0)
+        {
+            Console.WriteLine("There are no customers in queue.");
+        }
+        else
+        {
+            var customer = _queue[0];
+            _queue.RemoveAt(0); // Moved to remove customer after information is retrieved
+            Console.WriteLine(customer);
+        }
     }
 
     /// <summary>
