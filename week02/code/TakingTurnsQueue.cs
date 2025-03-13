@@ -9,9 +9,9 @@
 /// </summary>
 public class TakingTurnsQueue
 {
-    private readonly PersonQueue _people = new();
+    private readonly Queue<Person> _people = new(); // Changed <PersonQueue> to Queue<Person>
 
-    public int Length => _people.Length;
+    public int Length => _people.Count; // Changed .Length to .Count
 
     /// <summary>
     /// Add new people to the queue with a name and number of turns
@@ -33,7 +33,7 @@ public class TakingTurnsQueue
     /// </summary>
     public Person GetNextPerson()
     {
-        if (_people.IsEmpty())
+        if (_people.Count <= 0) // Changed from _people.IsEmpty()
         {
             throw new InvalidOperationException("No one in the queue.");
         }
@@ -43,6 +43,10 @@ public class TakingTurnsQueue
             if (person.Turns > 1)
             {
                 person.Turns -= 1;
+                _people.Enqueue(person);
+            }
+            else if (person.Turns <= 0)  // Added for players with infinite turns (zero or negative)
+            {
                 _people.Enqueue(person);
             }
 
