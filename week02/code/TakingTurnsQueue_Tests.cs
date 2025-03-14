@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // TODO Problem 1 - Run test cases and record any defects the test code finds in the comment above the test method.

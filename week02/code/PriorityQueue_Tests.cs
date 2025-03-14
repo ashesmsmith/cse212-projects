@@ -9,7 +9,7 @@ public class PriorityQueueTests
     // Scenario: Add a new item (data and priority) to the end of the queue and remove by priority
     // Expected Result: [e, d, c, b, a]
     // Defect(s) Found: Items are queued correctly but are not dequeued
-    public void TestPriorityQueue_1()
+    public void TestPriorityQueue_AddAndRemove()
     {
         var a = new PriorityItem("a", 1);
         var b = new PriorityItem("b", 3);
@@ -44,7 +44,7 @@ public class PriorityQueueTests
     // Scenario: Add 2 items with the same priority and remove the first one in the list
     // Expected Result: [w, v, x, y, z]
     // Defect(s) Found: Removing the last item with high priority instead of the first
-    public void TestPriorityQueue_2()
+    public void TestPriorityQueue_DuplicatePriority()
     {
         var z = new PriorityItem("z", 1);
         var y = new PriorityItem("y", 4);
@@ -79,7 +79,7 @@ public class PriorityQueueTests
     // Scenario: Return an error message if the queue is empty
     // Expected Result: Error Message
     // Defect(s) Found: 
-    public void TestPriorityQueue_3()
+    public void TestPriorityQueue_Empty()
     {
         var priorityQueue = new PriorityQueue();
 
