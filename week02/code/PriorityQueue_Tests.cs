@@ -78,7 +78,7 @@ public class PriorityQueueTests
     [TestMethod]
     // Scenario: Return an error message if the queue is empty
     // Expected Result: Error Message
-    // Defect(s) Found: 
+    // Defect(s) Found: None
     public void TestPriorityQueue_Empty()
     {
         var priorityQueue = new PriorityQueue();
