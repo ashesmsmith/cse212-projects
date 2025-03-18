@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -22,7 +23,25 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var wordsSet = new HashSet<string>(words);
+        var pairsSet = new HashSet<string>();
+        var pairsList = new List<string>();
+
+        foreach (var word in words)
+        {
+            var reversed = $"{word[1]}{word[0]}";
+
+            if (!pairsSet.Contains(word) && wordsSet.Contains(reversed) && reversed[1] != reversed[0])
+            {
+                pairsSet.Add(word);
+                pairsSet.Add(reversed);
+                pairsList.Add($"{word} & {reversed}");
+            }
+        }
+
+        var pairsArray = pairsList.ToArray();
+
+        return pairsArray;
     }
 
     /// <summary>
