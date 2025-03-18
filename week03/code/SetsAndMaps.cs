@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -29,8 +28,11 @@ public static class SetsAndMaps
 
         foreach (var word in words)
         {
-            var reversed = $"{word[1]}{word[0]}";
+            var reversed = $"{word[1]}{word[0]}"; // reverse letter order
 
+            // Check if pairsSet does not contain the word
+            // Check if wordsSet does contain th reverse of the word
+            // Check if the letters are not the same
             if (!pairsSet.Contains(word) && wordsSet.Contains(reversed) && reversed[1] != reversed[0])
             {
                 pairsSet.Add(word);
@@ -39,7 +41,7 @@ public static class SetsAndMaps
             }
         }
 
-        var pairsArray = pairsList.ToArray();
+        var pairsArray = pairsList.ToArray(); // Convert list to array
 
         return pairsArray;
     }
@@ -182,8 +184,21 @@ public static class SetsAndMaps
         // TODO Problem 5:
         // 1. Add code in FeatureCollection.cs to describe the JSON using classes and properties 
         // on those classes so that the call to Deserialize above works properly.
-        // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
+        // 2. Add code below to create a string out each place a earthquake has happened today and its magnitude.
         // 3. Return an array of these string descriptions.
-        return [];
+
+        var earthquakesList = new List<string>();
+
+        foreach (var feature in featureCollection.Features)
+        {
+            var magnitude = feature.Properties.Mag;
+            var place = feature.Properties.Place;
+
+            earthquakesList.Add($"{place} - Mag {magnitude}");
+        }
+
+        var earthquakesArray = earthquakesList.ToArray();
+
+        return earthquakesArray;
     }
 }
