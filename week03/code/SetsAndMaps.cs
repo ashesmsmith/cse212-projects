@@ -72,7 +72,7 @@ public static class SetsAndMaps
             else
             {
                 var currentValue = degrees[degree];
-                degrees[degree] = currentValue += 1;
+                degrees[degree] = currentValue + 1;
             }
         }
 
@@ -98,7 +98,59 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+
+        // Remove spaces and make lower case
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+
+        // If the words are not the same length it is not an anagram
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+
+        var letters = new Dictionary<char, int>();
+
+        // Build Dictionary
+        foreach (var letter in word1)
+        {
+            if (!letters.ContainsKey(letter))
+            {
+                letters.Add(letter, 1);
+            }
+            else
+            {
+                var value = letters[letter];
+                letters[letter] = value + 1;
+            }
+        }
+
+        // Check if letters from word2 are in the Dictionary and add to value
+        for (int i = 0; i < word2.Length; i++)
+        {
+            if (!letters.ContainsKey(word2[i]))
+            {
+                return false;
+            }
+            else
+            {
+                var value = letters[word2[i]];
+                letters[word2[i]] = value + 1;
+            }
+        }
+
+        // Check that there is an even number for each value
+        // Each letter was seen the same amount of times in each word
+        foreach (var letter in letters)
+        {
+            var value = letter.Value;
+            if (value % 2 != 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /// <summary>
