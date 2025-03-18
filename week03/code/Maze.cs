@@ -11,8 +11,8 @@
 /// If a direction is false, then we can assume there is a wall in that direction.
 /// If a direction is true, then we can proceed.  
 ///
-/// If there is a wall, then throw an InvalidOperationException with the message "Can't go that way!".  If there is no wall,
-/// then the 'currX' and 'currY' values should be changed.
+/// If there is a wall, then throw an InvalidOperationException with the message "Can't go that way!".  
+/// If there is no wall, then the 'currX' and 'currY' values should be changed.
 /// </summary>
 public class Maze
 {
@@ -32,7 +32,16 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        var value = _mazeMap[(_currX, _currY)];
+
+        if (value[0] == false)
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currX -= 1;
+        }
     }
 
     /// <summary>
@@ -41,7 +50,16 @@ public class Maze
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        var value = _mazeMap[(_currX, _currY)];
+
+        if (value[1] == false)
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currX += 1;
+        }
     }
 
     /// <summary>
@@ -50,7 +68,16 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        var value = _mazeMap[(_currX, _currY)];
+
+        if (value[2] == false)
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currY -= 1;
+        }
     }
 
     /// <summary>
@@ -59,7 +86,16 @@ public class Maze
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        var value = _mazeMap[(_currX, _currY)];
+
+        if (value[3] == false)
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currY += 1;
+        }
     }
 
     public string GetStatus()
