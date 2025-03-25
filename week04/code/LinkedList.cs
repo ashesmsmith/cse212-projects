@@ -37,7 +37,7 @@ public class LinkedList : IEnumerable<int>
         Node newNode = new(value);
 
         // If the empty, head and tail are both the newNode
-        if (_head is null)
+        if (_tail is null)
         {
             _head = newNode;
             _tail = newNode;
@@ -80,16 +80,16 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
-        // If list only has one item, set head and tail to null
+        // If list is empty or only has one item, set head and tail to null
         if (_head == _tail)
         {
             _head = null;
             _tail = null;
         }
-        else if (_head is not null)
+        else if (_tail is not null)
         {
-            _tail.Prev.Next = null; // Set 2nd to last node 'next' to null
-            _tail = _tail.Prev; // Set tail to 2nd to last node
+            _tail.Prev!.Next = null; // Set current tail to null
+            _tail = _tail.Prev; // new tail is the previously 2nd to last
         }
     }
 
@@ -153,14 +153,13 @@ public class LinkedList : IEnumerable<int>
                 }
                 else
                 {
-                    current.Next.Prev = current.Prev; // Set current next 'previous' to current 'previous'
-                    current.Prev.Next = current.Next; // Set current previous 'next' to current 'next'
+                    current.Next!.Prev = current.Prev; // Set current next 'previous' to current 'previous'
+                    current.Prev!.Next = current.Next; // Set current previous 'next' to current 'next'
                 }
+                return;
             }
-            else
-            {
-                current = current.Next; // Move to the next node
-            }
+
+            current = current.Next; // Move to the next node
         }
     }
 
