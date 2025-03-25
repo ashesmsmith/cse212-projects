@@ -33,6 +33,21 @@ public class LinkedList : IEnumerable<int>
     public void InsertTail(int value)
     {
         // TODO Problem 1
+        // Create new node
+        Node newNode = new(value);
+
+        // If the empty, head and tail are both the newNode
+        if (_head is null)
+        {
+            _head = newNode;
+            _tail = newNode;
+        }
+        else
+        {
+            newNode.Prev = _tail; // Set 'previous' for newNode to the current tail
+            _tail.Next = newNode; // Set current tail 'next' to newNode
+            _tail = newNode; // Set newNode to tail
+        }
     }
 
 
@@ -65,6 +80,17 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+        // If list only has one item, set head and tail to null
+        if (_head == _tail)
+        {
+            _head = null;
+            _tail = null;
+        }
+        else if (_head is not null)
+        {
+            _tail.Prev.Next = null; // Set 2nd to last node 'next' to null
+            _tail = _tail.Prev; // Set tail to 2nd to last node
+        }
     }
 
     /// <summary>
@@ -109,6 +135,33 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        Node? current = _head; // Start at the head
+
+        while (current is not null)
+        {
+            if (current.Data == value)
+            {
+                if (current == _head) // If current is the head call RemoveHead function
+                {
+                    RemoveHead();
+                    return;
+                }
+                else if (current == _tail) // If current is the tail call RemoveTail function
+                {
+                    RemoveTail();
+                    return;
+                }
+                else
+                {
+                    current.Next.Prev = current.Prev; // Set current next 'previous' to current 'previous'
+                    current.Prev.Next = current.Next; // Set current previous 'next' to current 'next'
+                }
+            }
+            else
+            {
+                current = current.Next; // Move to the next node
+            }
+        }
     }
 
     /// <summary>
@@ -117,6 +170,17 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+        Node? current = _head; // Start at the head
+
+        while (current is not null) // Continue until value is null
+        {
+            if (current.Data == oldValue)
+            {
+                current.Data = newValue;
+            }
+
+            current = current.Next; // Move to the next node
+        }
     }
 
     /// <summary>
@@ -147,7 +211,12 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        var current = _tail; // Start at the tail
+        while (current is not null)
+        {
+            yield return current.Data;
+            current = current.Prev; // Move to previous item in list
+        }
     }
 
     public override string ToString()
@@ -168,8 +237,10 @@ public class LinkedList : IEnumerable<int>
     }
 }
 
-public static class IntArrayExtensionMethods {
-    public static string AsString(this IEnumerable array) {
+public static class IntArrayExtensionMethods
+{
+    public static string AsString(this IEnumerable array)
+    {
         return "<IEnumerable>{" + string.Join(", ", array.Cast<int>()) + "}";
     }
 }
