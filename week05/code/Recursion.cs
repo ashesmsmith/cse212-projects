@@ -163,6 +163,21 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+        // If there are no wildcards or empty, add pattern to list and return
+        if (!pattern.Contains('*'))
+        {
+            results.Add(pattern);
+            return;
+        }
+        else
+        {
+            var wildIndex = pattern.IndexOf('*', 0); // Index of wildcard
+
+            var prefix = pattern.Substring(0, wildIndex); // Pattern before 
+            var suffix = pattern.Substring(wildIndex + 1);
+            WildcardBinary($"{prefix}1{suffix}", results);
+            WildcardBinary($"{prefix}0{suffix}", results);
+        }
     }
 
 
