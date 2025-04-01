@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Diagnostics;
 
 public static class Recursion
 {
@@ -22,10 +22,13 @@ public static class Recursion
         else
         {
             // n^2 + sum of squares less than n
-            // Ex: SumSquaresRecursive(5) would return 25 + 16 + 9 + 4 + 1 + 0 = 55
+            // Ex: SumSquaresRecursive(5)
+            // 5^2 + (4^2) + (3^2) + (2^2) + (1^2) + 0
+            // 25 + 16 + 9 + 4 + 1 + 0 = 55
             return n * n + SumSquaresRecursive(n - 1);
         }
     }
+
 
     /// <summary>
     /// #############
@@ -49,7 +52,24 @@ public static class Recursion
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
+        // If the word is the required size, add it to the list
+        if (word.Length == size)
+        {
+            results.Add(word);
+            Debug.WriteLine($"Added: {word}");
+            return;
+        }
+
+        // Build permutations
+        for (int i = 0; i < letters.Length; i++)
+        {
+            // Exclude the letter at index i from future recursion
+            string newWord = letters.Substring(0, i) + letters.Substring(i + 1);
+            Debug.WriteLine($"Building: {newWord}");
+            PermutationsChoose(results, newWord, size, word + letters[i]);
+        }
     }
+
 
     /// <summary>
     /// #############
@@ -112,6 +132,7 @@ public static class Recursion
         return ways;
     }
 
+
     /// <summary>
     /// #############
     /// # Problem 4 #
@@ -129,6 +150,7 @@ public static class Recursion
     {
         // TODO Start Problem 4
     }
+
 
     /// <summary>
     /// Use recursion to insert all paths that start at (0,0) and end at the
