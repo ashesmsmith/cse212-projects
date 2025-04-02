@@ -15,15 +15,16 @@ public static class Recursion
         // TODO Start Problem 1
         if (n <= 0)
         {
-            return 0;
+            return 0; // Stops recursion
         }
         else
         {
-            // n^2 + sum of squares less than n
-            // Ex: SumSquaresRecursive(5)
-            // 5^2 + (4^2) + (3^2) + (2^2) + (1^2) + 0
-            // 25 + 16 + 9 + 4 + 1 + 0 = 55
+            // (n*n) + ((n-1)*(n-1)) + ... until 0
             return n * n + SumSquaresRecursive(n - 1);
+
+            // Ex: SumSquaresRecursive(5)
+            // (5^2) + (4^2) + (3^2) + (2^2) + (1^2) + 0 = 55
+            // (5*5) + ((5-1)*(5-1)) + ((4-1)*(4-1)) + ... 0            
         }
     }
 
@@ -58,10 +59,13 @@ public static class Recursion
         }
 
         // Build permutations
-        for (int i = 0; i < letters.Length; i++)
+        for (int i = 0; i < letters.Length; i++) // Continue for the length of the string
         {
             // Exclude the letter at index i from future recursion
+            // newWord = letters before [i] + letters after [i]
             string newWord = letters.Substring(0, i) + letters.Substring(i + 1);
+
+            // Add the letter at [i] to the end of the word
             PermutationsChoose(results, newWord, size, word + letters[i]);
         }
     }
@@ -128,13 +132,13 @@ public static class Recursion
             remember = new Dictionary<int, decimal>();
         }
 
-        // Check if previously done
+        // Check if previously done and key exists
         if (remember.ContainsKey(s))
         {
             return remember[s];
         }
 
-        // Solve using recursion
+        // Solve using recursion and add to dictionary
         // Moving 1, 2, or 3 steps at a time
         decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
         remember[s] = ways; // Add to dictionary
@@ -159,7 +163,7 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
-        // If there are no wildcards or empty, add pattern to list and return
+        // If empty or there are no wildcards '*', add pattern to list and return
         if (!pattern.Contains('*'))
         {
             results.Add(pattern);
@@ -169,10 +173,10 @@ public static class Recursion
         {
             var wildIndex = pattern.IndexOf('*', 0); // Index of wildcard
 
-            var prefix = pattern.Substring(0, wildIndex); // Pattern before 
-            var suffix = pattern.Substring(wildIndex + 1);
-            WildcardBinary($"{prefix}1{suffix}", results);
-            WildcardBinary($"{prefix}0{suffix}", results);
+            var prefix = pattern.Substring(0, wildIndex); // Pattern before wildcard
+            var suffix = pattern.Substring(wildIndex + 1); // Pattern after wildcard
+            WildcardBinary($"{prefix}1{suffix}", results); // Replace wildcard with '1'
+            WildcardBinary($"{prefix}0{suffix}", results); // Replace wildcard with '0'
         }
     }
 
@@ -192,15 +196,17 @@ public static class Recursion
 
         // TODO Start Problem 5
         // Add current location to currPath list
+        // Starts with (0, 0)
         currPath.Add((x, y));
 
-        // Check if we are at the end 
+        // Check if we are at the end - (2, 2)
         if (maze.IsEnd(x, y))
         {
-            results.Add(currPath.AsString());
+            results.Add(currPath.AsString()); // Convert currPath to a string and add to results
             return;
         }
 
+        // Check for valid moves from current location
         // Move Right
         if (maze.IsValidMove(currPath, x + 1, y))
         {
