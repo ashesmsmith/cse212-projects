@@ -18,6 +18,8 @@ public class Node
             // Insert to the left
             if (Left is null)
                 Left = new Node(value);
+            else if (Left.Data == value)
+                return; // If value already exists, do nothing
             else
                 Left.Insert(value);
         }
@@ -26,6 +28,8 @@ public class Node
             // Insert to the right
             if (Right is null)
                 Right = new Node(value);
+            else if (Right.Data == value)
+                return; // If value already exists, do nothing
             else
                 Right.Insert(value);
         }
